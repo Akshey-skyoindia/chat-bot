@@ -29,7 +29,7 @@ const API = {
                     .then(response => response.json())
                     .then(result => {
 
-                        console.log("resultresultresult",result.candidates[0].content.parts[0].text)
+                        console.log("resultresultresult", result.candidates[0].content.parts[0].text)
                         resolve(result.candidates[0].content.parts[0].text); // Adjust this based on the actual structure of the API response
                     })
                     .catch(error => {
@@ -39,6 +39,39 @@ const API = {
             }
         });
 
+
+    },
+    getDialogFlow: async (message) => {
+
+
+
+
+
+        return new Promise(function (resolve, reject) {
+            const raw = JSON.stringify({
+                "text": message,
+                "userId": "dh-22-j3-"
+            });
+
+            const requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: raw,
+                redirect: "follow"
+            };
+
+            fetch("/api/chatbot", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+
+                    console.log("resultresultresult", result.fulfillmentMessages[0].text.text[0])
+                    resolve(result.fulfillmentMessages[0].text.text[0]); // Adjust this based on the actual structure of the API response
+                })
+                .catch(error => {
+                    console.error(error);
+                    reject("Failed to fetch chatbot response");
+                });
+        });
 
     }
 };
