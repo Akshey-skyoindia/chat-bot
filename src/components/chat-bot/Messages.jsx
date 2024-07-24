@@ -9,6 +9,7 @@ export default function Messages({ messages }) {
 
     },[messages]);
     return (
+        
         <div className="messages">
             {messages}
             <div id={"el"} ref={el} />
